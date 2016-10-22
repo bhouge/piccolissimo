@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>VIVALDI COMMAND CENTER</title>
+</head>
+<body>
+
+<div id="buttons">
+
+<button id="panic">panic</button>
+
+</div>
+
+<div id="birdButtons"></div>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+var socket = io();
+socket.on('get type', function(msg){
+	//console.log("client's secret message is " + msg);
+	socket.emit('i am', "tester");
+});
+
+var panicButton = document.getElementById('panic');
+panicButton.onclick = function() {
+	socket.emit('control message', 'panic');
+};
+
+var poemLines = [["Ornithological Blogpoem by Elisa Gabbert (tap to begin)", 0., 0],
+                 ["You will be woken by the chirping of the birds,", 0.25, 1],
+                 ["which is the sound of their egos escaping from their bodies", 0., 1],
+                 ["in loud and irregular streams.", 0., 2],
+                 ["They are acupuncture birds;", 0.25, 1],
+                 ["where the chirps fall on your eardrums corresponds to where you experience the pain.", 0., 2],
+                 ["The birds have PhDs.", 0.25, 1],
+                 ["They chirp out chapters from their dissertations.", 0., 2],
+                 ["The birds do not agree that irony is dead.", 0., 2],
+                 ["One of the birds has tried repeatedly to fall to its death", 0., 1],
+                 ["but always starts flying at the last second.", 0., 2],
+                 ["The birds are excessively vain about their wings.", 0.25, 1],
+                 ["They have been known to assemble themselves into bridges and other structures.", 0., 1],
+                 ["An obelisk of feathers.", 0., 2],
+                 ["Do not feed the birds;", 0.25, 1],
+                 ["they are following a strict high-protein diet.", 0., 2],
+                 ["The birds are control freaks.", 0.25, 1],
+                 ["Do not, under any circumstances, try to touch their beaks.", 0., 2],
+                 ["One of the birds has assumed a leadership role.", 0.25, 1],
+                 ["Another bird is plotting to assassinate it.", 0., 2],
+                 ["Some items have gone missing from the kitchen.", 0.25, 1],
+                 ["The birds are capable of eating almost anything but are far too discriminating.", 0., 2],
+                 ["If you are lucky one morning the birds may chirp selections from your favorite opera.", 0., 1],
+                 ["The birds are especially fond of Wagner.", 0., 1],
+                 ["What would you like to hear?", 0., 2],
+                 ["They have a very long waiting list and are nepotistic.", 0., 2],
+                 ["Do not be afraid of angering the birds.", 0., 1],
+                 ["What angers the birds is fear.", 0., 2]];
+
+var birdButtons = document.getElementById("birdButtons");
+for (var i = 1; i < poemLines.length; i++) {
+	var button = document.createElement("button");
+	button.setAttribute("id", "play" + i);
+	//button.setAttribute("disabled", true);
+	button.setAttribute("class", "off");
+	button.innerHTML = poemLines[i][0];
+	button.onclick = function () {
+		var button = this;
+		var index = button.id.slice(4);
+		socket.emit('control message', index);
+	}
+	birdButtons.appendChild(button);
+}
+
+</script>
+
+</body>
+</html>
