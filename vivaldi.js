@@ -7,29 +7,40 @@ var fs = require('fs');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var directoryPrefix = '/sounds/compressed/';
-var folderNameArray = ['BenFTW',
-                       'b1rds3y3',
-                       'bogaloogaloo',
-                       'brice',
-                       'bridgesandstructuresbuilding',
-                       'Elianna',
-                       'EliannaP',
-                       'EliannaPa',
-                       'Emma Cohen',
-                       'Emma Cohen 2',
-                       'Emma Cohen 3',
-                       'Hello!',
-                       'JonnyWang2',
-                       'JonnyWang3',
-                       'JonnyWangGTCMT',
-                       'papertoweltubegoatee',
-                       'professorbirdwithaphd',
-                       'Recording2',
-                       'Test3',
-                       'TheBirdIsTheWoooord',
-                       'tobleronemaster',
-                       'windvalley'];
+var directoryPrefix = '/sounds/';
+var folderNameArray = ['compressed/'];
+var fileNames = ['1stMovement/1-Am.mp3',
+                 '1stMovement/2-Abdim.mp3',
+                 '1stMovement/3-DM.mp3',
+                 '1stMovement/4-GM.mp3',
+                 '1stMovement/5-CM.mp3',
+                 '1stMovement/6-C7.mp3',
+                 '1stMovement/7-FM.mp3',
+                 '2ndMovement/Vivaldi_2_Granularized.mp3',
+                 '2ndMovement/Vivaldi_2_MM1.mp3',
+                 '2ndMovement/Vivaldi_bass.mp3',
+                 '2ndMovement/Vivaldi_treble.mp3',
+                 '3rdMovement/arp-progression-rev.mp3',
+                 '3rdMovement/arp-progression.mp3',
+                 'Chords/am-1VERB.mp3',
+                 'Chords/CM-1.mp3',
+                 'Chords/CM-2.mp3',
+                 'Chords/CM-3.mp3',
+                 'Chords/CM-4VERB.mp3',
+                 'Chords/DM-1.mp3',
+                 'Chords/DM-2.mp3',
+                 'Chords/DoubleC-1.mp3',
+                 'Chords/EM-1.mp3',
+                 'Chords/em-2.mp3',
+                 'Chords/FM-1.mp3',
+                 'Chords/GM-1.mp3',
+                 'largo.mp3',
+                 'Seda/01-01MIT.mp3',
+                 'Seda/02-02MIT.mp3',
+                 'Seda/03-03MIT.mp3',
+                 'Seda/04-04MIT.mp3',
+                 'Seda/05-05MIT.mp3',
+                 'Seda/06-06MIT.mp3']; 
 
 
 var latestControlPhrase = 0;
@@ -123,9 +134,9 @@ io.on('connection', function(socket){
 	    	socket.birdType = msg;
 	    	listenerCount++;
 	    	console.log("listener connected; listeners: " + listenerCount);
-	    	for (var i = 1; i <= 29; i++) {
+	    	for (var i = 1; i < fileNames.length; i++) {
 	    		var randomFolder = folderNameArray[Math.floor(Math.random() * folderNameArray.length)];
-	    		var fileToPush = __dirname + directoryPrefix + randomFolder + '/Birds' + i + '.mp3';
+	    		var fileToPush = __dirname + directoryPrefix + randomFolder + fileNames[i];
 	    		pushSoundToClient(fileToPush, i, socket);
 	    	}
 	    } else if (msg == 'chorister') {
