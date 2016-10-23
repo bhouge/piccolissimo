@@ -2,13 +2,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
+
 <title>VIVALDI PROJECT</title>
 <style>
 	body { font: 13px Helvetica, Arial; }
+
+	h1 {
+		text-align: center;
+		font: 400 130px/0.8 'Great Vibes', Helvetica, sans-serif;
+  	 	color: #000000	;
+  		text-shadow: 4px 4px 3px rgba(0,0,0,0.1); 
+	}
+
+	h2{
+		text-align: center;
+	}
 </style>
 </head>
 <body>
-<h1>VIVALDI PROJECT</h1>
+
+<h1>Vivaldi Project</h1>
 <h2>A real-time remix of Vivaldi's Concerto in C RV 433.</h2>
 
 <p>
@@ -31,7 +45,6 @@ Chrome or Firefox are the recommended browsers on Android devices.
 <script src="scripts/.js"></script>
 
 <script type="text/javascript">
-
 var socket = io();
 socket.on('control message', function(msg){
 	if (msg != "panic") {
