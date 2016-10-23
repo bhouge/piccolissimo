@@ -160,8 +160,9 @@ function birdButtonClicked(measureNumber) {
 			granularTones.push(tone01);
 			break;
 		case 4:
-			//acupuncture
-			var Bird = new IntermittentSound(audioBuffers[4], 0.5, 7., 1, 3, 0.1, 0.3, 0.15, 0.25, [[0,0]], true);
+			//Seda Test
+			//IntermittentSound(buffer, minPause, maxPause, minReps, maxReps, minVol, maxVol, minDur, maxDur, pitchArray, startWithPause, completionCallback)
+			var Bird = new IntermittentSound(audioBuffers[26], 0.5, 0.5, 0, 0, 0.1, 1., 95, 95, [[0,0]], false);
 			console.log(Bird.estimateDuration());
 			Bird.connect(gainNode);
 			Bird.play();

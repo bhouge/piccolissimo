@@ -134,11 +134,16 @@ io.on('connection', function(socket){
 	    	socket.birdType = msg;
 	    	listenerCount++;
 	    	console.log("listener connected; listeners: " + listenerCount);
-	    	for (var i = 1; i < fileNames.length; i++) {
-	    		var randomFolder = folderNameArray[Math.floor(Math.random() * folderNameArray.length)];
-	    		var fileToPush = __dirname + directoryPrefix + randomFolder + fileNames[i];
+	    	var randomFolder, fileToPush;
+	    	for (var i = 1; i < fileNames.length - 6; i++) {
+	    		randomFolder = folderNameArray[Math.floor(Math.random() * folderNameArray.length)];
+	    		fileToPush = __dirname + directoryPrefix + randomFolder + fileNames[i];
 	    		pushSoundToClient(fileToPush, i, socket);
 	    	}
+	    	var sedaIndex = Math.floor(Math.random() * 6);
+    		var sedaFile = fileNames.slice(fileNames.length - 6, fileNames.length)[sedaIndex];
+    		var oneMoreToPush = __dirname + directoryPrefix + randomFolder + sedaFile;
+    		pushSoundToClient(oneMoreToPush, fileNames.length - 5, socket);
 	    } else if (msg == 'chorister') {
 	    	//socket.emit('new checkpoint', checkpoint);
 	    	socket.birdType = msg;
