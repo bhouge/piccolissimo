@@ -2,33 +2,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href='http://fonts.googleapis.com/css?family=Great+Vibes' rel='stylesheet' type='text/css'>
-
-<title>VIVALDI PROJECT</title>
+<title>ORNITHOLOGICAL BLOGPOEM</title>
 <style>
 	body { font: 13px Helvetica, Arial; }
-
-	h1 {
-		text-align: center;
-		font: 400 130px/0.8 'Great Vibes', Helvetica, sans-serif;
-  	 	color: #000000	;
-  		text-shadow: 4px 4px 3px rgba(0,0,0,0.1); 
-	}
-
-	h2{
-		text-align: center;
-	}
 </style>
 </head>
 <body>
-
-<h1>Vivaldi Project</h1>
-<h2>A real-time remix of Vivaldi's Concerto in C RV 433.</h2>
+<h1>ORNITHOLOGICAL BLOGPOEM</h1>
+<h2>Poem by Elisa Gabbert. Music by Ben Houge.</h2>
 
 <p>
-More about something. Score?
+You will be woken by the chirping of the birds, which is the sound
+of their egos escaping from their bodies in loud and irregular streams.
+They are acupuncture birds; where the chirps fall on your eardrums
+corresponds to where you experience the pain. The birds have PhDs.
+They chirp out chapters from their dissertations. The birds do not agree
+that irony is dead. One of the birds has tried repeatedly to fall to its death
+but always starts flying at the last second. The birds are excessively
+vain about their wings. They have been known to assemble themselves
+into bridges and other structures. An obelisk of feathers. Do not feed
+the birds; they are following a strict high-protein diet. The birds are
+control freaks. Do not, under any circumstances, try to touch their beaks.
+One of the birds has assumed a leadership role. Another bird is plotting
+to assassinate it. Some items have gone missing from the kitchen.
+The birds are capable
+of eating almost anything but are far too discriminating. If you are
+lucky one morning the birds may chirp selections from your favorite
+opera. The birds are especially fond of Wagner. What would you like
+to hear? They have a very long waiting list and are nepotistic. Do not
+be afraid of angering the birds. What angers the birds is fear.
 </p>
-
+<p>
+This poem originally appeared on Chris Tonelli's blog and was subsequently published in THE FRENCH EXIT by Birds, LLC.
+</p>
 
 <div id="controlButtons">
 <button id="listen" class="off">Listen</button>
@@ -42,9 +48,10 @@ Chrome or Firefox are the recommended browsers on Android devices.
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="scripts/IntermittentSound.js"></script>
-<script src="scripts/.js"></script>
+<script src="scripts/Chirp.js"></script>
 
 <script type="text/javascript">
+
 var socket = io();
 socket.on('control message', function(msg){
 	if (msg != "panic") {
@@ -88,10 +95,10 @@ function birdButtonTest(measureNumber) {
 	var testBird = new IntermittentSound(audioBuffers[measureNumber], 0.15, 0.3, 1, 4, 1., 1., 1.5, 2., [[4,0], [4,3]], false, completion);
 	console.log("estimated intermittent sound duration: " + testBird.estimateDuration());
     testBird.connect(gainNode);
-	var testVolley = new Volley(testBird, 2.5, 6., 2, 5, true);
-	console.log("estimated Volley duration: " + testVolley.estimateDuration());
-	testVolley.play();
-	volleys.push(testVolley);
+	var testChirp = new Chirp(testBird, 2.5, 6., 2, 5, true);
+	console.log("estimated chirp duration: " + testChirp.estimateDuration());
+	testChirp.play();
+	chirps.push(testChirp);
 }
 
 var listenButtonEnabled = true;
@@ -105,7 +112,7 @@ listenButton.onclick = function() {
 };
 
 var intermittentSounds = [];
-var volleys = [];
+var chirps = [];
 
 var bufferIndex = 0;
 function birdButtonClicked(measureNumber) {
@@ -179,10 +186,10 @@ function birdButtonClicked(measureNumber) {
 			Bird = new IntermittentSound(audioBuffers[7], 0.1, 0.3, 1, 3, 0.025, 0.1, 0.1, 0.2, [[3,0]], true);
 			console.log(Bird.estimateDuration());
 			Bird.connect(gainNode);
-			var testChirp = new Volley(Bird, 2., 7., 2, 5, true);
-			console.log("estimated volley duration: " + testChirp.estimateDuration());
+			var testChirp = new Chirp(Bird, 2., 7., 2, 5, true);
+			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleyss.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 1007:
 			//dissertations continued...
@@ -233,7 +240,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 1.5, 2.5, 3, 6, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 12:
 			//bridges
@@ -249,7 +256,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 1.5, 2.5, 3, 6, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 13:
 			//obelisk
@@ -356,7 +363,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(testBird, 2.5, 6., 2, 5, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 1019:
 			//assassinate continued...
@@ -410,7 +417,7 @@ function birdButtonClicked(measureNumber) {
 			Bird.connect(gainNode);
 			Bird.play();
 			intermittentSounds.push(Bird);
-			// adding chirp (broke the one on the next cue down into two separate volleys)
+			// adding chirp (broke the one on the next cue down into two separate chirps)
 			var freaks = [14, 15, 16, 17, 18, 19];
 			var randomBufferIndex = Math.floor(Math.random() * freaks.length);
 			var randomBuffer = freaks[randomBufferIndex];
@@ -420,7 +427,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(testBird, 1.5, 6., 2, 5, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 1021:
 			//discriminating continued...
@@ -432,7 +439,7 @@ function birdButtonClicked(measureNumber) {
 			Bird.connect(gainNode);
 			Bird.play();
 			intermittentSounds.push(Bird);
-			//volleys, breaking up into 2 volleys
+			//chirps, breaking up into 2 chirps
 			randomBufferIndex = Math.floor(Math.random() * freaks.length);
 			randomBuffer = freaks[randomBufferIndex];
 			//Bird = new IntermittentSound(audioBuffers[randomBuffer], 0.5, 3., 7, 12, 0.15, 0.5, 0.25, 0.5, [[3, 6], [3, 9], [4, 6], [4, 9]], true);			
@@ -442,7 +449,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(testBird, 1.5, 6., 2, 5, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 22:
 			//opera
@@ -475,14 +482,14 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 1.5, 5., 1, 3, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			Bird = new IntermittentSound(audioBuffers[23], 0.15, 0.25, 1, 4, 0.05, 0.15, 0.35, 0.75, [[3, 0], [3, 3]], true);
 			console.log(Bird.estimateDuration());
 			Bird.connect(gainNode);
 			testChirp = new Chirp(Bird, 1.5, 5., 1, 3, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 24:
 			//hear
@@ -496,7 +503,7 @@ function birdButtonClicked(measureNumber) {
 			Bird.connect(gainNode);
 			Bird.play();
 			intermittentSounds.push(Bird);
-			// turn these into volleys...
+			// turn these into chirps...
 			//Bird = new IntermittentSound(audioBuffers[24], 0.5, 3., 1, 3, 0.3, 0.6, 0.35, 0.75, [[3, 0], [3, 3], [4, 6], [4, 9]], true);
 			Bird = new IntermittentSound(audioBuffers[24], 0.15, 0.5, 1, 3, 0.3, 0.6, 0.35, 0.75, [[3, 0], [3, 3]], true);
 			console.log(Bird.estimateDuration());
@@ -504,14 +511,14 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 2.5, 4., 1, 3, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			Bird = new IntermittentSound(audioBuffers[24], 0.15, 0.5, 1, 3, 0.3, 0.6, 0.35, 0.75, [[4, 6], [4, 9]], true);
 			console.log(Bird.estimateDuration());
 			Bird.connect(gainNode);
 			testChirp = new Chirp(Bird, 2.5, 6., 2, 4, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			// and another chirp...
 			//Bird = new IntermittentSound(audioBuffers[24], 1., 3., 10, 14, 0.05, 0.15, 0.5, 1.5, [[4, 6], [4, 9], [5, 6]], true);
 			Bird = new IntermittentSound(audioBuffers[24], 0.15, 0.5, 1, 5, 0.25, 0.35, 0.5, 1.5, [[5, 6]], true);
@@ -520,7 +527,7 @@ function birdButtonClicked(measureNumber) {
 			testChirp = new Chirp(Bird, 2., 6., 3, 6, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 1024:
 			//hear continued...
@@ -546,7 +553,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 2., 6., 3, 8, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 1025:
 			//nepotistic continued...
@@ -574,7 +581,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 2., 6., 5, 7, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 27:
 			//anger
@@ -593,7 +600,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 2., 4., 5, 10, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 28:
 			//is
@@ -606,7 +613,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 2., 4., 3, 9, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 1028:
 			//is continued...
@@ -619,7 +626,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 2., 4., 4, 8, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		case 29:
 			//fear
@@ -632,7 +639,7 @@ function birdButtonClicked(measureNumber) {
 			var testChirp = new Chirp(Bird, 2., 5., 5, 8, true);
 			console.log("estimated chirp duration: " + testChirp.estimateDuration());
 			testChirp.play();
-			volleys.push(testChirp);
+			chirps.push(testChirp);
 			break;
 		default:
 			/*
@@ -653,8 +660,8 @@ function stopEverything() {
 	for (var i = 0; i < intermittentSounds.length; i++) {
 		intermittentSounds[i].stop();
 	}
-	for (var i = 0; i < volleys.length; i++) {
-		volleys[i].stop();
+	for (var i = 0; i < chirps.length; i++) {
+		chirps[i].stop();
 	}
 }
 

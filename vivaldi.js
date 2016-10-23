@@ -8,7 +8,28 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var directoryPrefix = '/sounds/compressed/';
-var folderNameArray = ['performances', 'snippets'];
+var folderNameArray = ['BenFTW',
+                       'b1rds3y3',
+                       'bogaloogaloo',
+                       'brice',
+                       'bridgesandstructuresbuilding',
+                       'Elianna',
+                       'EliannaP',
+                       'EliannaPa',
+                       'Emma Cohen',
+                       'Emma Cohen 2',
+                       'Emma Cohen 3',
+                       'Hello!',
+                       'JonnyWang2',
+                       'JonnyWang3',
+                       'JonnyWangGTCMT',
+                       'papertoweltubegoatee',
+                       'professorbirdwithaphd',
+                       'Recording2',
+                       'Test3',
+                       'TheBirdIsTheWoooord',
+                       'tobleronemaster',
+                       'windvalley'];
 
 
 var latestControlPhrase = 0;
@@ -102,15 +123,11 @@ io.on('connection', function(socket){
 	    	socket.birdType = msg;
 	    	listenerCount++;
 	    	console.log("listener connected; listeners: " + listenerCount);
-	    	// we start at 1, because line 0 in our text array is the title of the poem (no audio required)
-	    	/*
-	    	 * once we figure out what we need to have clients load automatically, we will put it here!
 	    	for (var i = 1; i <= 29; i++) {
 	    		var randomFolder = folderNameArray[Math.floor(Math.random() * folderNameArray.length)];
 	    		var fileToPush = __dirname + directoryPrefix + randomFolder + '/Birds' + i + '.mp3';
 	    		pushSoundToClient(fileToPush, i, socket);
 	    	}
-	    	*/
 	    } else if (msg == 'chorister') {
 	    	//socket.emit('new checkpoint', checkpoint);
 	    	socket.birdType = msg;
@@ -168,7 +185,7 @@ function pushSoundToClient(filename, bufferIndex, socket) {
 }
 
 var referenceTone;
-var fileToRead = __dirname + '/sounds/Fl_G4.wav';
+var fileToRead = __dirname + '/sounds/Fl_G4b.wav';
 fs.readFile(fileToRead, function(err, buf){
 	// loading pitch reference/test file
 	if (err) {
