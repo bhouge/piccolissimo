@@ -122,6 +122,14 @@ var granularPhrases = [];
 var intermittentSounds = [];
 var chirps = [];
 
+var timestamps= [[0.4,0.8,1.35,2.25,3.1],
+                 [0.522, 0.989, 1.408, 1.889, 2.355, 3.025],
+                 [0.6, 1.086, 1.562, 2.052, 2.607, 3.423],
+                 [0.516, 0.975, 1.443, 1.924, 2.453, 3.305],
+                 [0.5, 0.976, 1.445, 1.926, 2.453, 3.314],
+                 [0.543, 1.007, 1.448, 1.949, 2.470, 3.278],
+                 [0.584, 1.063, 1.561, 2.021, 2.535, 3.448]];
+
 function sToF(semitone) {
 	return Math.pow(2., semitone / 12.);
 }
@@ -327,34 +335,88 @@ function birdButtonClicked(measureNumber) {
 			Bird.play();
 			intermittentSounds.push(Bird);
 			break;
-		case 18:
-			//obelisk
 			
-			break;
-		case 1013:
-			//obelisk continued...
-			var Bird = new IntermittentSound(audioBuffers[1], 0.25, 1.25, 3, 5, 0.3, 0.6, 0.5, 1.5, [[0,-2]], true);
+			// **********
+			// start HERE!!!!
+		case 18:
+            //IntermittentSound(buffer, minPause, maxPause, minReps, maxReps, minVol, maxVol, minDur, maxDur, pitchArray, startWithPause)
+            //c arppegio start
+            duration = [0.4,0.8,1.35,2.25,3.1]
+            dur = Math.floor(Math.random() * duration.length)
+            var slowArp=new IntermittentSound(audioBuffers[4], 1, 4, 5, 10, 0.4, 0.7, duration[dur], duration[dur], [[-1,0],[0,0],[1,0]], true);
+            console.log(slowArp.estimateDuration());
+            slowArp.connect(gainNode);
+            slowArp.play();
+            intermittentSounds.push(slowArp);
+            break;
+            
+		case 19:
+            //IntermittentSound(buffer, minPause, maxPause, minReps, maxReps, minVol, maxVol, minDur, maxDur, pitchArray, startWithPause)
+
+            //different arpeggios
+
+            buffers = [0,2,3,4,5]
+            buf = buffers[Math.floor(Math.random() * buffers.length)]
+
+            durations = timestamps[buf]
+            dur = Math.floor(Math.random() * durations.length)
+
+            var complexArp = new IntermittentSound(audioBuffers[buf], 0, 4, 5, 10, 0.4, 0.7, durations[dur], durations[dur], [[-1,0],[0,0]], true);
+
+            console.log(complexArp);
+            console.log(complexArp.estimateDuration());
+            complexArp.connect(gainNode);
+            complexArp.play();
+            intermittentSounds.push(complexArp);
+            break;
+		case 20:
+            //tutti 12!!
+            var tutti=new IntermittentSound(audioBuffers[12], 0, 0, 1, 1, 0.7, 0.7, 12.5, 12.5, [[-1,0],[0,0]], false);
+            console.log(tutti.estimateDuration());
+            tutti.connect(gainNode);
+            tutti.play();
+            intermittentSounds.push(tutti);
+            break;
+            
+		case 21:
+            //crazy 12!!!!!
+            var notTutti=new IntermittentSound(audioBuffers[12], 2, 5, 1, 1, 0.3, 0.7, 8, 12.5, [[-1,0],[0,0]], true);
+            console.log(notTutti.estimateDuration());
+            notTutti.connect(gainNode);
+            notTutti.play();
+            intermittentSounds.push(notTutti);
+            break;
+			
+			
+		case 22:
+			//C major chords
+			var possibleBuffers = [14, 15, 16, 17, 20];
+			var chosenBufferIndex = Math.floor(Math.random() * possibleBuffers.length);
+			var Bird = new IntermittentSound(audioBuffers[possibleBuffers[chosenBufferIndex]], 1, 2, 2, 5, 0.5, 1., 2, 5, [[0,0], [0,5]], false);
 			console.log(Bird.estimateDuration());
 			Bird.connect(gainNode);
 			Bird.play();
 			intermittentSounds.push(Bird);
 			break;
-		case 14:
-			//do not feed
-			var Bird = new IntermittentSound(audioBuffers[14], 0.5, 3.5, 4, 8, 0.35, 0.65, 0.5, 2.5, [[0,0]], true);
+		case 23:
+			//C major chords
+			var possibleBuffers = [14, 15, 16, 17, 20];
+			var chosenBufferIndex = Math.floor(Math.random() * possibleBuffers.length);
+			var Bird = new IntermittentSound(audioBuffers[possibleBuffers[chosenBufferIndex]], 1.5, 3, 1, 2, 0.5, 0.75, 2, 5, [[0,0]], false);
 			console.log(Bird.estimateDuration());
 			Bird.connect(gainNode);
 			Bird.play();
 			intermittentSounds.push(Bird);
 			break;
-		case 15:
-			//high-protein
-			var Bird = new IntermittentSound(audioBuffers[15], 1., 3., 3, 7, 0.4, 0.7, 1.5, 2.5, [[0,0]], true);
-			console.log(Bird.estimateDuration());
-			Bird.connect(gainNode);
-			Bird.play();
-			intermittentSounds.push(Bird);
+		case 24:
+			var tone01 = new GranularTone(audioBuffers[40], 10., 20., 0.12, 0.5, 1.5, 0.75, 1., 1.);
+			//console.log(sToF(-3));
+			tone01.connect(gainNode);
+			tone01.play();
+			granularTones.push(tone01);
 			break;
+			
+			/*
 		case 16:
 			//control freaks
 			var Bird = new IntermittentSound(audioBuffers[16], 1., 1.5, 3, 5, 0.45, 0.75, 2., 3., [[0,0]], true);
@@ -546,7 +608,7 @@ function birdButtonClicked(measureNumber) {
 			testChirp.play();
 			chirps.push(testChirp);
 			break;
-		case 24:
+		case 124:
 			//hear
 			var Bird = new IntermittentSound(audioBuffers[24], 0.5, 1.25, 0, 2, 0.25, 0.55, 0.35, 0.75, [[0, 0], [4, 0]], true);
 			console.log(Bird.estimateDuration());
@@ -729,6 +791,7 @@ function birdButtonClicked(measureNumber) {
 			tone01.play();
 			granularTones.push(tone01);
 			break;
+			*/
 		default:
 			/*
 			this was a terrible idea! well, kind of useful during testing...
