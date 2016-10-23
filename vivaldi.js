@@ -8,41 +8,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 var directoryPrefix = '/sounds/compressed/';
-var folderNameArray = ['BenFTW',
-                       'b1rds3y3',
-                       'bogaloogaloo',
-                       'brice',
-                       'bridgesandstructuresbuilding',
-                       'Elianna',
-                       'EliannaP',
-                       'EliannaPa',
-                       'Emma Cohen',
-                       'Emma Cohen 2',
-                       'Emma Cohen 3',
-                       'Hello!',
-                       'JonnyWang2',
-                       'JonnyWang3',
-                       'JonnyWangGTCMT',
-                       'papertoweltubegoatee',
-                       'professorbirdwithaphd',
-                       'Recording2',
-                       'Test3',
-                       'TheBirdIsTheWoooord',
-                       'tobleronemaster',
-                       'windvalley'];
+var folderNameArray = ['performances', 'snippets'];
 
-/*
- * 
- * 'Ben',
-                       'BenFTW',
-                       'Clais', 
-                       'Rebecca', 
-                       'Jon',
-                       'Francisco',
-                       'Lori',
- * 
- * 
- */
 
 var latestControlPhrase = 0;
 var checkpoint = false;
@@ -136,11 +103,14 @@ io.on('connection', function(socket){
 	    	listenerCount++;
 	    	console.log("listener connected; listeners: " + listenerCount);
 	    	// we start at 1, because line 0 in our text array is the title of the poem (no audio required)
+	    	/*
+	    	 * once we figure out what we need to have clients load automatically, we will put it here!
 	    	for (var i = 1; i <= 29; i++) {
 	    		var randomFolder = folderNameArray[Math.floor(Math.random() * folderNameArray.length)];
 	    		var fileToPush = __dirname + directoryPrefix + randomFolder + '/Birds' + i + '.mp3';
 	    		pushSoundToClient(fileToPush, i, socket);
 	    	}
+	    	*/
 	    } else if (msg == 'chorister') {
 	    	//socket.emit('new checkpoint', checkpoint);
 	    	socket.birdType = msg;
@@ -202,7 +172,7 @@ var fileToRead = __dirname + '/sounds/Fl_G4.wav';
 fs.readFile(fileToRead, function(err, buf){
 	// loading pitch reference/test file
 	if (err) {
-		console.log("FOOL! " + err);
+		console.log("Error: " + err);
 	} else {
 		referenceTone = buf;
 		console.log('pitch reference loaded');
