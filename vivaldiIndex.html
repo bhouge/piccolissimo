@@ -38,7 +38,7 @@ More info to go here.
 
 
 <div id="controlButtons" style = "text-align: center">
-<button id="listen" class="off" > Listen </button>
+<button id="listen" class="off" > Loading </button>
 </div>
 
 <h3>
@@ -53,6 +53,8 @@ Chrome or Firefox are the recommended browsers on Android devices.
 <script src="scripts/GranularTone.js"></script>
 
 <script type="text/javascript">
+
+var filesLoaded = 0;
 
 var socket = io();
 socket.on('control message', function(msg){
@@ -72,6 +74,12 @@ socket.on('get type', function(msg){
 });
 socket.on('audio', function(msg){
     console.log('audio received!');
+    filesLoaded++;
+    if (filesLoaded >= 27) {
+    	listenButtonEnabled = true;
+    	listenButton.innerHTML = " Listen "
+    	console.log('all audio loaded!');
+    }
     audioCtx.decodeAudioData(msg.buffer, function(buffer) {
     	audioBuffers[msg.index] = buffer;
     	buffersAreLoaded = true;
@@ -103,7 +111,7 @@ function birdButtonTest(measureNumber) {
 	chirps.push(testChirp);
 }
 
-var listenButtonEnabled = true;
+var listenButtonEnabled = false;
 var listenButton = document.getElementById('listen');
 listenButton.onclick = function() {
 	// rather bluntly ensuring the piece ends my way, 

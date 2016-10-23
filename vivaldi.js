@@ -159,6 +159,7 @@ io.on('connection', function(socket){
     		var sedaFile = fileNames.slice(fileNames.length - 6, fileNames.length)[sedaIndex];
     		var oneMoreToPush = __dirname + directoryPrefix + randomFolder + sedaFile;
     		pushSoundToClient(oneMoreToPush, fileNames.length - 6, socket);
+    		
 	    } else if (msg == 'chorister') {
 	    	//socket.emit('new checkpoint', checkpoint);
 	    	socket.birdType = msg;
