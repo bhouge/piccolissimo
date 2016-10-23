@@ -83,8 +83,18 @@ function GranularTone(buffer, minToneDur, maxToneDur, grainInterval, minGrainDur
 		fileNode.buffer = bufferToPlay;	
 		fileNode.connect(gainNode);
 		fileNode.playbackRate.value = pitchMultiplier;
-		fileNode.start(0., startTime, grainDuration * pitchMultiplier);
-		gainNode.gain.setValueCurveAtTime(that.grainWindow, 0., grainDuration);
+		
+		
+		//super hacky, revisit, but seems to work for now!
+		var slightDelay = audioCtx.currentTime + 0.1;
+		// delay before starting, time into buffer, duration of excerpt
+		fileNode.start(slightDelay, 0.1, grainDuration * pitchMultiplier);
+		// windows, start time, duration
+		gainNode.gain.setValueCurveAtTime(that.grainWindow, slightDelay, grainDuration);
+		
+		//fileNode.start(0., startTime, grainDuration * pitchMultiplier);
+		//gainNode.gain.setValueCurveAtTime(that.grainWindow, 0., grainDuration);
+		
 	}
 	
 	function scheduledGrainPlayer() {
