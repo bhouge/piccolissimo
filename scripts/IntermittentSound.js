@@ -59,9 +59,9 @@ function IntermittentSound(buffer, minPause, maxPause, minReps, maxReps, minVol,
 			//audioBufferGain.gain.linearRampToValueAtTime(volume, newNow + 0.05);
 			
 			audioBufferGain.gain.linearRampToValueAtTime(0.0, that.outputNode.context.currentTime);
-			audioBufferGain.gain.linearRampToValueAtTime(volume, that.outputNode.context.currentTime + 0.05);
-			audioBufferGain.gain.linearRampToValueAtTime(volume, that.outputNode.context.currentTime + that.dur - 0.05);
-			audioBufferGain.gain.linearRampToValueAtTime(0.0, that.outputNode.context.currentTime + that.dur);
+			audioBufferGain.gain.linearRampToValueAtTime(volume, that.outputNode.context.currentTime + 0.05/pitch);
+			audioBufferGain.gain.linearRampToValueAtTime(volume, that.outputNode.context.currentTime + (that.dur - 0.05)/pitch);
+			audioBufferGain.gain.linearRampToValueAtTime(0.0, that.outputNode.context.currentTime + that.dur/pitch);
 			
 			audioBufferSource.start(that.outputNode.context.currentTime, that.startTime, that.dur);
 		} catch(e) {

@@ -108,24 +108,30 @@ var chirps = [];
 var bufferIndex = 0;
 function birdButtonClicked(measureNumber) {
 	bufferIndex = measureNumber;
-	//IntermittentSound(buffer, minPause, maxPause, minReps, maxReps, minVol, maxVol, minDur, maxDur, pitchArray, startWithPause)
 	switch (measureNumber) {
 		case 1:
-			// first tonality lasts about 22 sec from end of first phrase...
-			//awoken
-			var Bird = new IntermittentSound(audioBuffers[1], 3., 12., 2, 4, 0.05, 0.15, 0.1, 0.15, [[0,0]], true);
+			// Example 1: this is how IntermittentSound works...
+			// the array is an array of pitches, represented as [octave, semitone] (offset from original pitch of file)
+			// minDur/maxDur lets you grab a chunk out of the original file, and it's consistent throughout the whole play() call
+			//IntermittentSound(buffer, minPause, maxPause, minReps, maxReps, minVol, maxVol, minDur, maxDur, pitchArray, startWithPause)
+			var Bird = new IntermittentSound(audioBuffers[0], 0.1, 0.5, 2, 4, 0.75, 1., 0.1, 0.5, [[0,0], [0,6]], true);
 			console.log(Bird.estimateDuration());
 			Bird.connect(gainNode);
 			Bird.play();
 			intermittentSounds.push(Bird);
 			break;
 		case 2:
-			//egos
-			var Bird = new IntermittentSound(audioBuffers[2], 2., 10., 2, 4, 0.05, 0.2, 0.1, 0.2, [[0,0]], true);
+			// Example 2: this is how Chirp works (and Volley is a copy of Chirp)
+			// it's basically an intermittent sound of intermittent sounds (like bird chirps)
+			var Bird = new IntermittentSound(audioBuffers[0], 0.1, 0.2, 1, 3, 0.5, 0.75, 0.1, 0.2, [[2,0], [2,3]], true);
 			console.log(Bird.estimateDuration());
 			Bird.connect(gainNode);
-			Bird.play();
-			intermittentSounds.push(Bird);
+			// instead of calling Bird.play(), use it to create a new Chirp, and play the Chirp
+			// params are IntermittentSound, minPause, maxPause, minReps, maxReps, and whether or not to pause first (I think)
+			var testChirp = new Chirp(Bird, 2.5, 5., 2, 4, true);
+			console.log("estimated chirp duration: " + testChirp.estimateDuration());
+			testChirp.play();
+			chirps.push(testChirp);
 			break;
 		case 3:
 			//streams
