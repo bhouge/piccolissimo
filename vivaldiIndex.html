@@ -162,7 +162,8 @@ function birdButtonClicked(measureNumber) {
 		case 4:
 			//Seda Test
 			//IntermittentSound(buffer, minPause, maxPause, minReps, maxReps, minVol, maxVol, minDur, maxDur, pitchArray, startWithPause, completionCallback)
-			var Bird = new IntermittentSound(audioBuffers[26], 0.5, 0.5, 0, 0, 0.1, 1., 95, 95, [[0,0]], false);
+			console.log("Seda, can you hear me?");
+			var Bird = new IntermittentSound(audioBuffers[26], 0.5, 0.5, 0, 0, 1., 1., 95, 95, [[0,0]], false);
 			console.log(Bird.estimateDuration());
 			Bird.connect(gainNode);
 			Bird.play();
