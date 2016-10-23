@@ -35,12 +35,27 @@ var fileNames = ['1stMovement/1-Am.mp3',
                  'Chords/FM-1.mp3',
                  'Chords/GM-1.mp3',
                  'largo.mp3',
+                 'HPSCHD/VIVALDI_II_1em.mp3',
+                 'HPSCHD/VIVALDI_II_2em.mp3',
+                 'HPSCHD/VIVALDI_II_3a.mp3',
+                 'HPSCHD/VIVALDI_II_4B.mp3',
+                 'HPSCHD/VIVALDI_II_5Fshrp.mp3',
+                 'HPSCHD/VIVALDI_II_6bm.mp3',
+                 'HPSCHD/VIVALDI_II_7E.mp3',
+                 'HPSCHD/VIVALDI_II_8A.mp3',
+                 'HPSCHD/VIVALDI_II_9D.mp3',
+                 'HPSCHD/VIVALDI_II_10G.mp3',
+                 'HPSCHD/VIVALDI_II_11e.mp3',
+                 'HPSCHD/VIVALDI_II_12a.mp3',
+                 'HPSCHD/VIVALDI_II_13B.mp3',
+                 'HPSCHD/VIVALDI_II_14em.mp3',
+                 'HPSCHD/VIVALDI_II_clapping.mp3',
                  'Seda/01-01MIT.mp3',
                  'Seda/02-02MIT.mp3',
                  'Seda/03-03MIT.mp3',
                  'Seda/04-04MIT.mp3',
                  'Seda/05-05MIT.mp3',
-                 'Seda/06-06MIT.mp3']; 
+                 'Seda/06-06MIT.mp3'];
 
 
 var latestControlPhrase = 0;
